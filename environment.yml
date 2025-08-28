@@ -1,4 +1,4 @@
-name: opera
+name: base
 channels:
   - pytorch
   - defaults
