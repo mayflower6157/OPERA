@@ -1,28 +1,24 @@
-from transformers import AutoProcessor, AutoModelForCausalLM
-from PIL import Image
-import requests
-import torch
+from transformers import pipeline
 
-# Choose the LLaVA checkpoint
-model_id = "llava-hf/llava-1.5-7b-hf"
-
-# Load processor + model
-processor = AutoProcessor.from_pretrained(model_id)
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype=torch.float16,
-    device_map="auto"
+# Use the multimodal pipeline
+pipe = pipeline(
+    "image-text-to-text", 
+    model="llava-hf/llava-1.5-7b-hf", 
+    device_map="auto"   # automatically picks MPS/GPU/CPU
 )
 
-# Load image from Hugging Face (or any URL)
-url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/cats.png"
-image = Image.open(requests.get(url, stream=True).raw)
+# Inputs: image + text in chat format
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image", "image": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/coco_sample.png"},
+            {"type": "text", "text": "Describe the image briefly."}
+        ],
+    }
+]
 
-# Prompt
-prompt = "What do you see in this picture?"
+# Run inference
+result = pipe(messages)
 
-# Preprocess + run
-inputs = processor(prompt, image, return_tensors="pt").to("cuda")
-output = model.generate(**inputs, max_new_tokens=128)
-
-print(processor.batch_decode(output, skip_special_tokens=True)[0])
+print(result[0]["generated_text"])
