@@ -1,37 +1,27 @@
 name: opera
 channels:
-  - nvidia
   - pytorch
   - defaults
 dependencies:
   - python=3.10
   - pip=23
-
-  # Core deep learning stack (CUDA 12.1 for A100)
   - pytorch=2.3.0
   - torchvision=0.18.0
   - torchaudio=2.3.0
   - pytorch-cuda=12.1
-
   - pip:
-      # Hugging Face stack
       - transformers==4.44.0
       - tokenizers==0.19.1
       - accelerate==0.30.1
       - bitsandbytes==0.44.1
       - safetensors>=0.3.1
-
-      # OPERA / MiniGPT4 deps
       - omegaconf
       - hydra-core
-      - timm>=0.6.13
+      - timm
       - einops
       - iopath
       - opencv-python-headless
       - webdataset
       - pycocotools
       - sentencepiece
-
-      # Dev / Jupyter
       - jupyterlab
-      - ipykernel
