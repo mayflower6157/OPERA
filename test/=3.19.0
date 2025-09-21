@@ -1,0 +1,2 @@
+Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
+Requirement already satisfied: protobuf in /home/ubuntu/miniconda/envs/opera/lib/python3.10/site-packages (6.32.0)
