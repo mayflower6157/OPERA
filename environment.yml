@@ -1,4 +1,4 @@
-name: opera_op
+name: opera
 channels:
   - defaults
   - nvidia

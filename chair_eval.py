@@ -158,7 +158,7 @@ if not os.path.exists(base_dir):
 
 
 for img_id in tqdm(range(len(img_files))):
-    if img_id == 500:
+    if img_id == 5:
         break
     img_file = img_files[img_id]
     img_id = int(img_file.split(".jpg")[0][-6:])

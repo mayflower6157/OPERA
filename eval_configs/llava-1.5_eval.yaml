@@ -5,27 +5,15 @@ model:
   freeze_backbone: True
   tune_mm_mlp_adapter: False
   freeze_mm_mlp_adapter: True
-  # Enable gradient checkpointing to save VRAM
-  gradient_checkpointing: True
-  max_txt_len: 64
+  max_txt_len: 160
   end_sym: "###"
   low_resource: False
   # prompt_path: "prompts/alignment.txt"
   prompt_template: 'USER: {} ASSISTANT: '
   system_message: "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions." 
-  merged_ckpt: "./weights/llava-v1.5-7b"
+  merged_ckpt: "/home/ubuntu/model/liuhaotian-llava-v1.5-7b/"
   
-  # 🔥 NEW for 4-bit quantization
-  quantization:
-    load_in_4bit: True
-    bnb_4bit_compute_dtype: "float16"
-    bnb_4bit_use_double_quant: True
-    bnb_4bit_quant_type: "nf4"
 
-  # 🔧 Device/offloading
-  device_map: "auto"
-  offload_folder: "offload"
-  
 datasets:
   cc_sbu_align:
     vis_processor:
