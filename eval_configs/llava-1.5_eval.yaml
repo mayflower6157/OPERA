@@ -5,6 +5,8 @@ model:
   freeze_backbone: True
   tune_mm_mlp_adapter: False
   freeze_mm_mlp_adapter: True
+  # Enable gradient checkpointing to save VRAM
+  gradient_checkpointing: True
   max_txt_len: 64
   end_sym: "###"
   low_resource: False
@@ -19,6 +21,10 @@ model:
     bnb_4bit_compute_dtype: "float16"
     bnb_4bit_use_double_quant: True
     bnb_4bit_quant_type: "nf4"
+
+  # 🔧 Device/offloading
+  device_map: "auto"
+  offload_folder: "offload"
   
 datasets:
   cc_sbu_align:

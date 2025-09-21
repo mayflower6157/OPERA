@@ -115,6 +115,16 @@ vis_processors, txt_processors = load_preprocess(processor_cfg)
 print(vis_processors["eval"].transform)
 print("Done!")
 
+
+# Preprocessors
+processor_cfg = cfg.get_config().preprocess
+processor_cfg.vis_processor.eval.do_normalize = False
+vis_processors, txt_processors = load_preprocess(processor_cfg)
+
+print(vis_processors["eval"].transform)
+print("Done!")
+
+
 mean = (0.48145466, 0.4578275, 0.40821073)
 std = (0.26862954, 0.26130258, 0.27577711)
 norm = transforms.Normalize(mean, std)
@@ -123,7 +133,7 @@ norm = transforms.Normalize(mean, std)
 img_files = os.listdir(args.data_path)
 random.shuffle(img_files)
 
-with open(args.data_path + '../annotations_trainval2014/annotations/instances_val2014.json', 'r') as f:
+with open(args.data_path + '../annotations/instances_val2014.json', 'r') as f:
     lines = f.readlines()
 coco_anns = json.loads(lines[0])
 
@@ -152,6 +162,7 @@ for img_id in tqdm(range(len(img_files))):
         break
     img_file = img_files[img_id]
     img_id = int(img_file.split(".jpg")[0][-6:])
+    # img_id = int(img_file.split("_")[-1].split(".jpg")[0])
     img_info = img_dict[img_id]
     assert img_info["name"] == img_file
     img_anns = set(img_info["anns"])
